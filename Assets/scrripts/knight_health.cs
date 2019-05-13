@@ -2,11 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player_health : MonoBehaviour
+public class knight_health : MonoBehaviour
 {
-    public int health;
+    public int kni_health;
     public bool hasDied;
+    private bool collided;
+    private Animator _animator; 
     // Start is called before the first frame update
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("check2");
+        if (collision.gameObject.name == "Dragon" && _animator.GetBool("onAttack") == true)
+        {
+            collided = true;
+            Hit();
+            //Debug.Log("touching");
+        }
+    }
     void Start()
     {
         hasDied = false;
@@ -33,5 +45,18 @@ public class player_health : MonoBehaviour
         Debug.Log("player has fallen");
         yield return new WaitForSeconds(2);
         Debug.Log("Player has died");
+    }
+    void Hit()
+    {
+        kni_health -= 1;
+        if(kni_health==0)
+        {
+            Debug.Log("knight last zero health");
+            DestroyEnt();
+        }
+    }
+    void DestroyEnt()
+    {
+        Destroy(gameObject);
     }
 }

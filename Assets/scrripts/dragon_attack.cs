@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class attack : MonoBehaviour
+public class dragon_attack : MonoBehaviour
 {
     private Animator _anim;
     // Start is called before the first frame update

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class move : MonoBehaviour {
+public class dragon_move : MonoBehaviour {
 
 	// Use this for initialization
 
@@ -33,6 +33,7 @@ public class move : MonoBehaviour {
     {
         Debug.Log("check");
         _animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
     
     
@@ -52,9 +53,9 @@ public class move : MonoBehaviour {
     void PlayerMove()
     {
         ////controls
-        moveX = Input.GetAxis("Horizontal");
-        moveY = Input.GetAxis("Vertical");
-        if (Input.GetAxis("Vertical") > 0.5f)
+        moveX = Input.GetAxis("Horizontal_P2");
+        moveY = Input.GetAxis("Veritcal_P2");
+        if (Input.GetAxis("Veritcal_P2") > 0.5f)
         {
             _animator.SetBool("isJumping", Mathf.Abs(moveY) > 0.5f);
             Jump();
@@ -71,7 +72,7 @@ public class move : MonoBehaviour {
         //animation
         _animator.SetBool("isMoving", Mathf.Abs(moveX) > 0.5f);
         //physics
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * speed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
+        rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
     }
     void Jump()
     {
@@ -82,7 +83,7 @@ public class move : MonoBehaviour {
         }
         if(collided == true)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * height, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * height, ForceMode2D.Impulse);
             _animator.SetBool("isJumping", Mathf.Abs(moveY) > 0.0f);
             collided = false;
         }
